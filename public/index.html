@@ -1,0 +1,58 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
+        
+        
+        
+    </head>
+    
+    <body ng-app="pokeApp">
+        
+        <div class="container" ng-controller="Ctrl">
+            
+            <select ng-model="selectedName">
+                <option ng-repeat="name in names">{{ name }}</option>
+            </select>
+            <button class="btn btn-success btn-xs" ng-click="addName()">Add</button>
+            
+            <select ng-model="selectedRarity">
+                <option ng-repeat="rarity in rarities">{{ rarity }}</option>
+            </select>
+            <button class="btn btn-success btn-xs" ng-click="addRarity()">Add</button>
+            
+            <div class="row">
+                
+                <label>Name:</label>
+                <ul>
+                    <li ng-repeat="name in wanted.name">
+                        {{ name }}
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true" ng-click="removeName(name)"></span>
+                    </li>
+                    
+                </ul>
+                
+                <label>Rarity:</label>
+                <ul>
+                    <li ng-repeat="rarity in wanted.rarity">
+                        {{ rarity }}
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true" ng-click="removeRarity(rarity)"></span>
+                    </li>
+                </ul>
+            </div>
+            
+            <button class="btn btn-primary btn-xs" ng-click="save()">Save</button>
+            
+        </div>
+        
+    
+    
+        
+    </body>
+    
+        <script src="bower_components/jquery/dist/jquery.min.js" ></script>
+        <script src="bower_components/lodash/dist/lodash.min.js"></script>
+        <script src="bower_components/bootstrap/dist/js/bootstrap.min.js" ></script>
+        <script src="bower_components/angular/angular.min.js"></script>
+        <script src="app.js"></script>
+    
+</html>
