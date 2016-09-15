@@ -5,6 +5,8 @@ var fs = require('fs');
 var _ = require('lodash');
 var config = require('./config.json');
 var app = express();
+var GoogleMapsAPI = require('googlemaps');
+
 
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
@@ -83,6 +85,7 @@ function notify(message) {
 
     mailOptions.html = '<p>disappears: ' + disappear_time + '</p>';
     mailOptions.html += '<p><a href="https://www.google.com/maps/place/'+ message.longitude + ',' + message.latitude +'">Location</a></p>';
+    mailOptions.html += '<img src="'+ map(message.latitude, message.longitude) +'" ></img>';
 
     console.log('sending ', pokemon.name, ' which is ', pokemon.rarity);
 
@@ -100,9 +103,26 @@ function send() {
     });
 }
 
-server.listen(port, function (err) {
-  console.log('Running server on port ' + port);
-});
+
+
+function map(long, lat) {
+    var gmAPI = new GoogleMapsAPI({
+        key: config.mapkey
+    });
+    var params = {
+      center: lat+','+long,
+      zoom: 15,
+      size: '500x400',
+      maptype: 'roadmap',
+      markers: [
+        {
+          location: lat+','+long
+        }
+      ],
+
+    };
+    return gmAPI.staticMap(params); // return static map URL
+}
 
 
 // {
