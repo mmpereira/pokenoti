@@ -81,7 +81,7 @@ function notify(message) {
 
     mailOptions.subject = "Found: " + pokemon.name + " " + pokemon.rarity;
 
-    var disappear_time = new Date(message.disappear_time * 1000));
+    var disappear_time = new Date(message.disappear_time * 1000);
 
     mailOptions.html = '<p>disappears: ' + disappear_time + '</p>';
     mailOptions.html += '<p><a href="https://www.google.com/maps/place/'+ message.latitude + ',' + message.longitude +'">Location</a></p>';
