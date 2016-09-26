@@ -81,10 +81,10 @@ function notify(message) {
 
     mailOptions.subject = "Found: " + pokemon.name + " " + pokemon.rarity;
 
-    var disappear_time = new Date(Date.UTC(Number(message.disappear_time)));
+    var disappear_time = new Date(message.disappear_time * 1000));
 
     mailOptions.html = '<p>disappears: ' + disappear_time + '</p>';
-    mailOptions.html += '<p><a href="https://www.google.com/maps/place/'+ message.longitude + ',' + message.latitude +'">Location</a></p>';
+    mailOptions.html += '<p><a href="https://www.google.com/maps/place/'+ message.latitude + ',' + message.longitude +'">Location</a></p>';
     mailOptions.html += '<img src="'+ map(message.latitude, message.longitude) +'" ></img>';
 
     console.log('sending ', pokemon.name, ' which is ', pokemon.rarity);
@@ -105,7 +105,7 @@ function send() {
 
 
 
-function map(long, lat) {
+function map(lat, long) {
     var gmAPI = new GoogleMapsAPI({
         key: config.mapkey
     });
