@@ -31,8 +31,8 @@ var rarities = _.uniqBy(_.map(_.values(pokemonList), 'rarity'), function(e) {
 var names = _.map(_.values(pokemonList), 'name');
 var wanted = config.wanted;
 
-  console.log('Running server on port ' + port);
-  server.listen(port, function (err) {
+console.log('Running server on port ' + port);
+server.listen(port, function (err) {
 
   console.log('looking for: ');
   console.log('rarity: ', wanted.rarity);
@@ -70,8 +70,15 @@ function check(pokemon) {
     var isName = _.isEmpty(wanted.name) || _.indexOf(wanted.name, pokemon.name) > -1;
     var isRarity = _.isEmpty(wanted.rarity) || _.indexOf(wanted.rarity, pokemon.rarity) > -1;
 
-    console.log('checking: ', pokemon.name, ' ', pokemon.rarity);
-    return isName && isRarity;
+    console.log('checking: ', pokemon.name, ' ', pokemon.rarity, ' > ', isName && isRarity);
+
+    if(_.indexOf(wanted.name, pokemon.name) > -1) { // if name in list
+        return true;
+    } else if(_.isEmpty(wanted.rarity) || _.indexOf(wanted.rarity, pokemon.rarity) > -1) { // if rarity empty or rarity in wanted
+        return true;
+    } else {
+        return false;
+    }
 }
 
 function notify(message) {
